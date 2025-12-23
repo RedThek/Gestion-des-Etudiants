@@ -1,6 +1,5 @@
 #include "fonction.h"
 
-// Affiche le menu et retourne le choix
 int menu() {
     int choix;
     printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
@@ -19,7 +18,6 @@ int menu() {
     return choix;
 }
 
-// 1. Enregistrer
 void saisirEtudiant(Etudiant *e) {
     printf("\nMatricule: "); scanf("%s", e->matricule);
     printf("Nom: "); scanf("%s", e->nom);
@@ -32,7 +30,6 @@ void saisirEtudiant(Etudiant *e) {
     printf("Region d'origine: "); scanf("%s", e->regionOrigine);
 }
 
-// 9. Afficher la liste
 void afficherListe(Etudiant *tab, int n) {
     printf("\n--- LISTE DES ETUDIANTS ---\n");
     for(int i = 0; i < n; i++) {
@@ -41,40 +38,30 @@ void afficherListe(Etudiant *tab, int n) {
     }
 }
 
-// 2. Modifier (avec pointeurs)
 void modifierEtudiant(Etudiant *e) {
 
 }
 
-// 7. Calculer Age
 int calculerAge(Date dateNaiss) {
 }
 
-// 3. Recherche Linéaire
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
 }
 
-// 5. Tri Alphabétique
 void trierAlphabetique(Etudiant *tab, int n) {
 }
 
-// 4. Supprimer
 void supprimerEtudiant(Etudiant *tab, int *n, char *matricule) {
 }
 
-// 6. Recherche Dichotomique (Nécessite un tableau trié par Matricule au préalable)
 int rechercheDichotomique(Etudiant *tab, int n, char *matricule) {
 }
 
-// 8. Trier par Filière
 void trierFiliere(Etudiant *tab, int n) {
 }
 
-// Sauvegarde le tableau d'étudiants dans le fichier
 void sauvegarderEtudiants(Etudiant *tab, int n) {
 }
 
-// Charge les étudiants depuis le fichier dans le tableau
-// Retourne le nombre d'étudiants chargés
 int chargerEtudiants(Etudiant *tab) {
 }

@@ -9,7 +9,6 @@ int main() {
     char matRech[20];
     int index;
 
-    // 1. CHARGEMENT AUTOMATIQUE AU DEMARRAGE
     printf("Voulez-vous charger les donnees depuis le fichier ? (1=Oui, 0=Non): ");
     int charger;
     scanf("%d", &charger);
@@ -17,7 +16,6 @@ int main() {
         nombreEtudiants = chargerEtudiants(liste);
     }
 
-    // Si aucun étudiant chargé (fichier inexistant ou vide), on demande la saisie initiale
     if (nombreEtudiants == 0) {
         printf("Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: ");
         int aSaisir;
@@ -27,7 +25,6 @@ int main() {
             saisirEtudiant(&liste[nombreEtudiants]); // Utilise l'index courant
             nombreEtudiants++;
         }
-        // Sauvegarde immédiate après la première saisie
         sauvegarderEtudiants(liste, nombreEtudiants);
     }
 
@@ -36,36 +33,33 @@ int main() {
 
         switch(choix) {
 
-            case 1: // Enregistrer
+            case 1:
                 if(nombreEtudiants < MAX_ETUDIANTS) {
                     saisirEtudiant(&liste[nombreEtudiants]);
                     nombreEtudiants++;
-                    // Sauvegarde automatique après ajout (Sécurité)
                     sauvegarderEtudiants(liste, nombreEtudiants);
                 } else { printf("Liste pleine.\n"); }
                 break;
             
-            case 2: // Modifier
+            case 2:
                 printf("Matricule a modifier: "); scanf("%s", matRech);
                 index = rechercherMatricule(liste, nombreEtudiants, matRech);
                 if(index != -1) {
                     modifierEtudiant(&liste[index]);
-                    sauvegarderEtudiants(liste, nombreEtudiants); // Sauvegarde après modif
+                    sauvegarderEtudiants(liste, nombreEtudiants);
                 }
                 else printf("Introuvable.\n");
                 break;
 
-            case 3: // Rechercher
+            case 3:
                 printf("Matricule a chercher: "); scanf("%s", matRech);
                 index = rechercherMatricule(liste, nombreEtudiants, matRech);
                 if(index != -1) afficherListe(&liste[index], 1);
                 else printf("Introuvable.\n");
                 break;
 
-            case 4: // Supprimer
+            case 4:
                 printf("Matricule a supprimer: "); scanf("%s", matRech);
-                // Note: Il faudrait modifier la fonction supprimer pour qu'elle renvoie 1 si succès
-                // Pour l'instant on sauvegarde après tentative
                 supprimerEtudiant(liste, &nombreEtudiants, matRech);
                 sauvegarderEtudiants(liste, nombreEtudiants);
                 break;
@@ -74,7 +68,6 @@ int main() {
                 afficherListe(liste, nombreEtudiants);
                 break;
             case 6:
-                // Attention: Trier par matricule avant la dichotomie serait ideal ici
                 printf("Matricule a chercher (Dichotomie): "); scanf("%s", matRech);
                 index = rechercheDichotomique(liste, nombreEtudiants, matRech);
                 if(index != -1) printf("Trouve a la position %d\n", index);
@@ -95,7 +88,6 @@ int main() {
                 break;
             case 0:
                 printf("Au revoir !\n");
-                // Sauvegarde finale par sécurité
                 sauvegarderEtudiants(liste, nombreEtudiants);
                 break;
             default:
