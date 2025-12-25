@@ -1,36 +1,82 @@
 #include "fonction.h"
+#define MAX_ETUDIANTS 70
 
-// Affiche le menu et retourne le choix
-int menu() {
-    int choix;
-    printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
-    printf("1. Enregistrer un etudiant\n");
-    printf("2. Modifier un etudiant\n");
-    printf("3. Rechercher (Lineaire - Matricule)\n");
-    printf("4. Supprimer un etudiant\n");
-    printf("5. Trier par ordre Alphabetique (Nom)\n");
-    printf("6. Rechercher par Dichotomie (Matricule)\n");
-    printf("7. Calculer l'Age d'un etudiant\n");
-    printf("8. Trier par Filiere\n");
-    printf("9. Afficher la liste des etudiants\n");
-    printf("0. Quitter\n");
-    printf("Votre choix: ");
-    scanf("%d", &choix);
-    return choix;
+//Enregistrement d'un étudiant By MKR_fire
+void Enregistrer_Etudiants(Etudiant tab[], int *n)
+{
+    FILE *fichier;
+    int i, nombre;
+
+    /* Ouverture du fichier en mode ajout */
+    fichier = fopen("Donnee_des_Etudiants.txt", "a");
+
+    if (fichier == NULL)
+    {
+        printf("Erreur d'ouverture du fichier !\n");
+        return;
+    }
+
+    printf("Combien d'etudiants voulez-vous enregistrer ? ");
+    scanf("%d", &nombre);
+
+    for (i = 0; i < nombre; i++)
+    {
+        if (*n >= MAX_ETUDIANTS)
+        {
+            printf("Tableau plein !\n");
+            break;
+        }
+
+        printf("\n--- Enregistrement de l'etudiant %d ---\n", i + 1);
+
+        /* Saisie des Informations */
+        Enregistrement_Etudiant(&tab[*n]);
+
+        /* Ecriture dans le fichier */
+        Ecriture_Etudiant(&tab[*n], fichier);
+
+        (*n)++;
+    }
+
+    fclose(fichier);
+
+    printf("\nEnregistrement termine avec succes.\n");
+}
+// Récuperation des Informations By MKR_fire
+void Enregistrement_Etudiant(Etudiant *Personne)
+{
+    printf("Entrez le nom : ");
+    scanf("%s", Personne->nom);
+
+    printf("Entrez le prenom : ");
+    scanf("%s", Personne->prenom);
+
+    printf("Entrez le matricule : ");
+    scanf("%s", Personne->matricule);
+
+    printf("Entrez la date de naissance\n");
+    printf("Jour : ");
+    scanf("%d", &Personne->dateNaissance.jour);
+
+    printf("Mois : ");
+    scanf("%d", &Personne->dateNaissance.mois);
+
+    printf("Annee : ");
+    scanf("%d", &Personne->dateNaissance.annee);
+
+    printf("Entrez le sexe : ");
+    scanf("%s", Personne->sexe);
+
+    printf("Entrez le departement : ");
+    scanf("%s", Personne->departement);
+
+    printf("Entrez la filiere : ");
+    scanf("%s", Personne->filiere);
+
+    printf("Entrez la region d'origine : ");
+    scanf("%s", Personne->regionOrigine);
 }
 
-// 1. Enregistrer
-void saisirEtudiant(Etudiant *e) {
-    printf("\nMatricule: "); scanf("%s", e->matricule);
-    printf("Nom: "); scanf("%s", e->nom);
-    printf("Prenom: "); scanf("%s", e->prenom);
-    printf("Date Naissance (JJ MM AAAA): "); 
-    scanf("%d %d %d", &e->dateNaissance.jour, &e->dateNaissance.mois, &e->dateNaissance.annee);
-    printf("Sexe (M/F): "); scanf("%s", e->sexe);
-    printf("Departement: "); scanf("%s", e->departement);
-    printf("Filiere: "); scanf("%s", e->filiere);
-    printf("Region d'origine: "); scanf("%s", e->regionOrigine);
-}
 
 // 9. Afficher la liste
 void afficherListe(Etudiant *tab, int n) {
@@ -46,8 +92,10 @@ void modifierEtudiant(Etudiant *e) {
 
 }
 
-// 7. Calculer Age
-int calculerAge(Date dateNaiss) {
+//Calculer d'âge étudiant By MKR_fire
+int calculerAge(Etudiant etu, int annee_actuelle)
+{
+    return annee_actuelle - etu.dateNaissance.annee;
 }
 
 // 3. Recherche Linéaire
@@ -62,9 +110,25 @@ void trierAlphabetique(Etudiant *tab, int n) {
 void supprimerEtudiant(Etudiant *tab, int *n, char *matricule) {
 }
 
-// 6. Recherche Dichotomique (Nécessite un tableau trié par Matricule au préalable)
-int rechercheDichotomique(Etudiant *tab, int n, char *matricule) {
+// 6. Recherche Dichotomique By MKR_fire
+int rechercheDichotomique(Etudiant *tab, int n, char *matr)
+{
+    int debut = 0, fin = n - 1, milieu;
+
+    while (debut <= fin)
+    {
+        milieu = (debut + fin) / 2;
+
+        if (strcmp(tab[milieu].matricule, matr) == 0)
+            return milieu;
+        else if (strcmp(tab[milieu].matricule, matr) < 0)
+            debut = milieu + 1;
+        else
+            fin = milieu - 1;
+    }
+    return -1;
 }
+
 
 // 8. Trier par Filière
 void trierFiliere(Etudiant *tab, int n) {
