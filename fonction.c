@@ -42,8 +42,22 @@ void afficherListe(Etudiant *tab, int n) {
 }
 
 // 2. Modifier (avec pointeurs)
-void modifierEtudiant(Etudiant *e) {
+void modifierEtudiant(Etudiant *e, int n) {
+    char mat[20];
+    printf("Entrer le matricule a modifier : ");
+    scanf("%s", mat);
 
+    int pos = rechercherMatricule(e, n, mat);
+    if (pos == -1)
+    {
+        printf("Etudiant non trouve.\n");
+        return;
+    }
+
+    printf("Nouveau nom : ");
+    scanf("%s", e[pos].nom);
+    printf("Nouveau prenom : ");
+    scanf("%s", e[pos].prenom);
 }
 
 // 7. Calculer Age
@@ -52,6 +66,10 @@ int calculerAge(Date dateNaiss) {
 
 // 3. Recherche Linéaire
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
+    for (int i = 0; i < n; i++)
+        if (strcmp(tab[i].matricule, matricule) == 0)
+            return i;
+    return -1;
 }
 
 // 5. Tri Alphabétique
