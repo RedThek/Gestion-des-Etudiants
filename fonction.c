@@ -48,45 +48,16 @@ int calculerAge(Date dateNaiss) {
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
 }
 
-void trierAlphabetique(Etudiant tab[], int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
-            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
-                Etudiant tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
+void trierAlphabetique(Etudiant *tab, int n) {
 }
 
-void supprimerEtudiant(Etudiant tab[], int *n) {
-    char matricule[20];
-    printf("Matricule a supprimer : ");
-    scanf("%s", matricule);
-
-    int pos = rechercherParMatricule(tab, *n, matricule);
-
-    if (pos == -1) {
-        printf("Etudiant introuvable.\n");
-        return;
-    }
-
-    for (int i = pos; i < *n - 1; i++)
-        tab[i] = tab[i + 1];
-
-    (*n)--;
+void supprimerEtudiant(Etudiant *tab, int *n, char *matricule) {
 }
 
 int rechercheDichotomique(Etudiant *tab, int n, char *matricule) {
 }
 
 void trierFiliere(Etudiant *tab, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < nbEtudiants; j++)
-            if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
-                Etudiant tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
 }
 
 void sauvegarderEtudiants(Etudiant *tab, int n) {
