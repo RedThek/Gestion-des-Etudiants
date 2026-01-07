@@ -7,15 +7,6 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
     FILE *fichier;
     int i, nombre;
 
-    /* Ouverture du fichier en mode ajout */
-    fichier = fopen("Donnee_des_Etudiants.txt", "a");
-
-    if (fichier == NULL)
-    {
-        printf("Erreur d'ouverture du fichier !\n");
-        return;
-    }
-
     printf("Combien d'etudiants voulez-vous enregistrer ? ");
     scanf("%d", &nombre);
 
@@ -38,9 +29,6 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
         (*n)++;
     }
 
-    fclose(fichier);
-
-    printf("\nEnregistrement termine avec succes.\n");
 }
 // Récuperation des Informations By MKR_fire
 void Enregistrement_Etudiant(Etudiant *Personne)
