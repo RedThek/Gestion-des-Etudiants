@@ -76,8 +76,35 @@ void afficherListe(Etudiant *tab, int n) {
 }
 
 // 2. Modifier (avec pointeurs)
-void modifierEtudiant(Etudiant *e) {
+void modifierEtudiant(Etudiant *e, int n) {
+    char mat[20];
+    printf("Entrer le matricule a modifier : ");
+    scanf("%s", mat);
 
+    int pos = rechercherMatricule(e, n, mat);
+    if (pos == -1)
+    {
+        printf("Etudiant non trouve.\n");
+        return;
+    }
+
+    printf("Nouveau nom : ");
+    scanf("%s", e[pos].nom);
+    printf("Nouveau prenom : ");
+    scanf("%s", e[pos].prenom);
+    printf("Nouvelle date de naissance ");
+    printf("jour :");
+    scanf("%s", e[pos].dateNaissance.jour); 
+    printf("mois :");
+    scanf("%s", e[pos].dateNaissance.mois);  
+    printf("annee :");
+    scanf("%s", e[pos].dateNaissance.annee);
+    printf("Nouveau departement : ");
+    scanf("%s", e[pos].detartement);
+    printf("Nouvelle filiere : ");
+    scanf("%s", e[pos].filiere);
+    printf("Nouvelle Region d'origine : ");
+    scanf("%s", e[pos].regionOrigine); 
 }
 
 //Calculer d'âge étudiant By MKR_fire
@@ -88,14 +115,40 @@ int calculerAge(Etudiant etu, int annee_actuelle)
 
 // 3. Recherche Linéaire
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
+    for (int i = 0; i < n; i++)
+        if (strcmp(tab[i].matricule, matricule) == 0)
+            return i;
+    return -1;
 }
 
 // 5. Tri Alphabétique
 void trierAlphabetique(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
 }
 
 // 4. Supprimer
-void supprimerEtudiant(Etudiant *tab, int *n, char *matricule) {
+void supprimerEtudiant(Etudiant tab[], int *n) {
+    char matricule[20];
+    printf("Matricule a supprimer : ");
+    scanf("%s", matricule);
+
+    int pos = rechercherMatricule(tab, *n, matricule);
+
+    if (pos == -1) {
+        printf("Etudiant introuvable.\n");
+        return;
+    }
+
+    for (int i = pos; i < *n - 1; i++)
+        tab[i] = tab[i + 1];
+
+    (*n)--;
 }
 
 // 6. Recherche Dichotomique By MKR_fire
@@ -120,13 +173,60 @@ int rechercheDichotomique(Etudiant *tab, int n, char *matr)
 
 // 8. Trier par Filière
 void trierFiliere(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
 }
 
 // Sauvegarde le tableau d'étudiants dans le fichier
 void sauvegarderEtudiants(Etudiant *tab, int n) {
+    FILE *fichier = fopen("etudiants.txt", "w");
+    if (fichier != NULL) {
+        fprintf(fichier, "%d\n", n);
+        for (int i = 0; i < n; i++) {
+            // Utilisation du ; comme séparateur
+            fprintf(fichier, "%s;%s;%s;%d;%d;%d;%s;%s;%s;%s\n",
+                    tab[i].matricule, tab[i].nom, tab[i].prenom,
+                    tab[i].dateNaissance.jour, tab[i].dateNaissance.mois, tab[i].dateNaissance.annee,
+                    tab[i].sexe, tab[i].departement, tab[i].filiere, tab[i].regionOrigine);
+        }
+        fclose(fichier);
+        printf("Donnees sauvegardees.\n");
+    } else {
+        printf("Erreur lors de la sauvegarde.\n");
+    }
 }
 
 // Charge les étudiants depuis le fichier dans le tableau
 // Retourne le nombre d'étudiants chargés
 int chargerEtudiants(Etudiant *tab) {
+}
+    FILE *fichier = fopen("etudiants.txt", "r");
+    int n = 0;
+    if (fichier != NULL) {
+        if (fscanf(fichier, "%d\n", &n) != 1) { fclose(fichier); return 0; } // Le \n après %d est important
+
+        for (int i = 0; i < n; i++) {
+            // Lecture formatée complexe : %[^;] signifie "lire tout jusqu'au point virgule"
+            fscanf(fichier, "%[^;];%[^;];%[^;];%d;%d;%d;%[^;];%[^;];%[^;];%[^\n]\n",
+                    tab[i].matricule,
+                    tab[i].nom,
+                    tab[i].prenom,
+                    &tab[i].dateNaissance.jour,
+                    &tab[i].dateNaissance.mois,
+                    &tab[i].dateNaissance.annee,
+                    tab[i].sexe,
+                    tab[i].departement,
+                    tab[i].filiere,
+                    tab[i].regionOrigine);
+        }
+        fclose(fichier);
+        printf("%d etudiants charges.\n", n);
+        return n;
+    }
+    return 0;
 }
