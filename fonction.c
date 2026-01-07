@@ -87,10 +87,32 @@ int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
 
 // 5. Tri Alphabétique
 void trierAlphabetique(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
 }
 
 // 4. Supprimer
-void supprimerEtudiant(Etudiant *tab, int *n, char *matricule) {
+void supprimerEtudiant(Etudiant tab[], int *n) {
+    char matricule[20];
+    printf("Matricule a supprimer : ");
+    scanf("%s", matricule);
+
+    int pos = rechercherMatricule(tab, *n, matricule);
+
+    if (pos == -1) {
+        printf("Etudiant introuvable.\n");
+        return;
+    }
+
+    for (int i = pos; i < *n - 1; i++)
+        tab[i] = tab[i + 1];
+
+    (*n)--;
 }
 
 // 6. Recherche Dichotomique (Nécessite un tableau trié par Matricule au préalable)
@@ -99,6 +121,13 @@ int rechercheDichotomique(Etudiant *tab, int n, char *matricule) {
 
 // 8. Trier par Filière
 void trierFiliere(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
 }
 
 // Sauvegarde le tableau d'étudiants dans le fichier
