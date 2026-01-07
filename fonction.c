@@ -72,9 +72,48 @@ void trierFiliere(Etudiant *tab, int n) {
 
 // Sauvegarde le tableau d'étudiants dans le fichier
 void sauvegarderEtudiants(Etudiant *tab, int n) {
+    FILE *fichier = fopen("etudiants.txt", "w");
+    if (fichier != NULL) {
+        fprintf(fichier, "%d\n", n);
+        for (int i = 0; i < n; i++) {
+            // Utilisation du ; comme séparateur
+            fprintf(fichier, "%s;%s;%s;%d;%d;%d;%s;%s;%s;%s\n",
+                    tab[i].matricule, tab[i].nom, tab[i].prenom,
+                    tab[i].dateNaissance.jour, tab[i].dateNaissance.mois, tab[i].dateNaissance.annee,
+                    tab[i].sexe, tab[i].departement, tab[i].filiere, tab[i].regionOrigine);
+        }
+        fclose(fichier);
+        printf("Donnees sauvegardees.\n");
+    } else {
+        printf("Erreur lors de la sauvegarde.\n");
+    }
 }
 
 // Charge les étudiants depuis le fichier dans le tableau
 // Retourne le nombre d'étudiants chargés
 int chargerEtudiants(Etudiant *tab) {
+    FILE *fichier = fopen("etudiants.txt", "r");
+    int n = 0;
+    if (fichier != NULL) {
+        if (fscanf(fichier, "%d\n", &n) != 1) { fclose(fichier); return 0; } // Le \n après %d est important
+
+        for (int i = 0; i < n; i++) {
+            // Lecture formatée complexe : %[^;] signifie "lire tout jusqu'au point virgule"
+            fscanf(fichier, "%[^;];%[^;];%[^;];%d;%d;%d;%[^;];%[^;];%[^;];%[^\n]\n",
+                    tab[i].matricule,
+                    tab[i].nom,
+                    tab[i].prenom,
+                    &tab[i].dateNaissance.jour,
+                    &tab[i].dateNaissance.mois,
+                    &tab[i].dateNaissance.annee,
+                    tab[i].sexe,
+                    tab[i].departement,
+                    tab[i].filiere,
+                    tab[i].regionOrigine);
+        }
+        fclose(fichier);
+        printf("%d etudiants charges.\n", n);
+        return n;
+    }
+    return 0;
 }
