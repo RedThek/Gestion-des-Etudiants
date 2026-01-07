@@ -58,6 +58,19 @@ void modifierEtudiant(Etudiant *e, int n) {
     scanf("%s", e[pos].nom);
     printf("Nouveau prenom : ");
     scanf("%s", e[pos].prenom);
+    printf("Nouvelle date de naissance ");
+    printf("jour :");
+    scanf("%s", e[pos].dateNaissance.jour); 
+    printf("mois :");
+    scanf("%s", e[pos].dateNaissance.mois);  
+    printf("annee :");
+    scanf("%s", e[pos].dateNaissance.annee);
+    printf("Nouveau departement : ");
+    scanf("%s", e[pos].detartement);
+    printf("Nouvelle filiere : ");
+    scanf("%s", e[pos].filiere);
+    printf("Nouvelle Region d'origine : ");
+    scanf("%s", e[pos].regionOrigine); 
 }
 
 // 7. Calculer Age
