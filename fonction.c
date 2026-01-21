@@ -133,10 +133,7 @@ void trierAlphabetique(Etudiant *tab, int n) {
 }
 
 // 4. Supprimer
-void supprimerEtudiant(Etudiant tab[], int *n) {
-    char matricule[20];
-    printf("Matricule a supprimer : ");
-    scanf("%s", matricule);
+void supprimerEtudiant(Etudiant tab[], int *n, char *matricule) {
 
     int pos = rechercherMatricule(tab, *n, matricule);
 
