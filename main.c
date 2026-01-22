@@ -1,5 +1,4 @@
 #include "fonction.h"
-
 #define MAX_ETUDIANTS 100
 
 int main() {
@@ -84,7 +83,7 @@ int main() {
                 printf("Matricule pour calcul age: "); scanf("%s", matRech);
                 index = rechercherMatricule(liste, nombreEtudiants, matRech);
                 if(index != -1) 
-                    printf("Age: %d ans\n", calculerAge(liste[index].dateNaissance));
+                    printf("Age: %d ans\n", calculerAge(liste[index].dateNaissance, 2025));
                 break;
             case 8:
                 trierFiliere(liste, nombreEtudiants);
