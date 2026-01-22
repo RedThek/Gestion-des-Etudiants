@@ -1,6 +1,7 @@
 #include "fonction.h"
 
 int menu() {
+    //By MKR_fire
     int choix;
     printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
     printf("1. Enregistrer un etudiant\n");
