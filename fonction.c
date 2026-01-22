@@ -1,5 +1,5 @@
 #include "fonction.h"
-#define MAX_ETUDIANTS 70
+#define MAX_ETUDIANTS 100
 
 //Enregistrement d'un étudiant By MKR_fire
 void Enregistrer_Etudiants(Etudiant tab[], int *n)
@@ -100,7 +100,7 @@ void modifierEtudiant(Etudiant *e, int n) {
     printf("annee :");
     scanf("%s", e[pos].dateNaissance.annee);
     printf("Nouveau departement : ");
-    scanf("%s", e[pos].detartement);
+    scanf("%s", e[pos].departement);
     printf("Nouvelle filiere : ");
     scanf("%s", e[pos].filiere);
     printf("Nouvelle Region d'origine : ");
@@ -204,7 +204,6 @@ void sauvegarderEtudiants(Etudiant *tab, int n) {
 // Charge les étudiants depuis le fichier dans le tableau
 // Retourne le nombre d'étudiants chargés
 int chargerEtudiants(Etudiant *tab) {
-}
     FILE *fichier = fopen("etudiants.txt", "r");
     int n = 0;
     if (fichier != NULL) {
