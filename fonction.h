@@ -28,6 +28,7 @@ typedef struct {
 
 int menu();
 void saisirEtudiant(Etudiant *e);
+void Enregistrer_Etudiants(Etudiant tab[], int *n);
 void afficherEtudiant(Etudiant e);
 void afficherListe(Etudiant *tab, int n);
 void modifierEtudiant(Etudiant *e);
@@ -36,7 +37,7 @@ void supprimerEtudiant(Etudiant *tab, int *n, char *matricule);
 void trierAlphabetique(Etudiant *tab, int n);
 void trierFiliere(Etudiant *tab, int n);
 int rechercheDichotomique(Etudiant *tab, int n, char *matricule);
-int calculerAge(Date dateNaiss);
+int calculerAge(Date date, int annee_actuelle);
 void sauvegarderEtudiants(Etudiant *tab, int n);
 int chargerEtudiants(Etudiant *tab);
 

@@ -1,10 +1,27 @@
 #include "fonction.h"
-#define MAX_ETUDIANTS 70
+
+//Affiche le menu et retourne le choix
+int menu() {
+    int choix;
+    printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
+    printf("1. Enregistrer un etudiant\n");
+    printf("2. Modifier un etudiant\n");
+    printf("3. Rechercher (Lineaire - Matricule)\n");
+    printf("4. Supprimer un etudiant\n");
+    printf("5. Trier par ordre Alphabetique (Nom)\n");
+    printf("6. Rechercher par Dichotomie (Matricule)\n");
+    printf("7. Calculer l'Age d'un etudiant\n");
+    printf("8. Trier par Filiere\n");
+    printf("9. Afficher la liste des etudiants\n");
+    printf("0. Quitter\n");
+    printf("Votre choix: ");
+    scanf("%d", &choix);
+    return choix;
+}
 
 //Enregistrement d'un étudiant By MKR_fire
 void Enregistrer_Etudiants(Etudiant tab[], int *n)
 {
-    FILE *fichier;
     int i, nombre;
 
     printf("Combien d'etudiants voulez-vous enregistrer ? ");
@@ -12,7 +29,7 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
 
     for (i = 0; i < nombre; i++)
     {
-        if (*n >= MAX_ETUDIANTS)
+        if (*n >= 100)
         {
             printf("Tableau plein !\n");
             break;
@@ -22,47 +39,43 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
 
         /* Saisie des Informations */
         Enregistrement_Etudiant(&tab[*n]);
-
-        /* Ecriture dans le fichier */
-        Ecriture_Etudiant(&tab[*n], fichier);
-
         (*n)++;
     }
 
 }
 // Récuperation des Informations By MKR_fire
-void Enregistrement_Etudiant(Etudiant *Personne)
+void saisirEtudiant(Etudiant *e)
 {
     printf("Entrez le nom : ");
-    scanf("%s", Personne->nom);
+    scanf("%s", e->nom);
 
     printf("Entrez le prenom : ");
-    scanf("%s", Personne->prenom);
+    scanf("%s", e->prenom);
 
     printf("Entrez le matricule : ");
-    scanf("%s", Personne->matricule);
+    scanf("%s", e->matricule);
 
     printf("Entrez la date de naissance\n");
     printf("Jour : ");
-    scanf("%d", &Personne->dateNaissance.jour);
+    scanf("%d", &e->dateNaissance.jour);
 
     printf("Mois : ");
-    scanf("%d", &Personne->dateNaissance.mois);
+    scanf("%d", &e->dateNaissance.mois);
 
     printf("Annee : ");
-    scanf("%d", &Personne->dateNaissance.annee);
+    scanf("%d", &e->dateNaissance.annee);
 
     printf("Entrez le sexe : ");
-    scanf("%s", Personne->sexe);
+    scanf("%s", e->sexe);
 
     printf("Entrez le departement : ");
-    scanf("%s", Personne->departement);
+    scanf("%s", e->departement);
 
     printf("Entrez la filiere : ");
-    scanf("%s", Personne->filiere);
+    scanf("%s", e->filiere);
 
     printf("Entrez la region d'origine : ");
-    scanf("%s", Personne->regionOrigine);
+    scanf("%s", e->regionOrigine);
 }
 
 
@@ -108,9 +121,9 @@ void modifierEtudiant(Etudiant *e, int n) {
 }
 
 //Calculer d'âge étudiant By MKR_fire
-int calculerAge(Etudiant etu, int annee_actuelle)
+int calculerAge(Date date, int annee_actuelle)
 {
-    return annee_actuelle - etu.dateNaissance.annee;
+    return annee_actuelle - date.annee;
 }
 
 // 3. Recherche Linéaire
