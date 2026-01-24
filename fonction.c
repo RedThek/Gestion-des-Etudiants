@@ -36,6 +36,7 @@ void afficherListe(Etudiant *tab, int n) {
     for(int i = 0; i < n; i++) {
         printf("[%d] %s %s (Matricule: %s, Filiere: %s)\n", 
                i+1, tab[i].nom, tab[i].prenom, tab[i].matricule, tab[i].filiere);
+        
     }
 }
 
