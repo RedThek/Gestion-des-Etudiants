@@ -88,7 +88,7 @@ void afficherListe(Etudiant *tab, int n) {
     }
 }
 
-// 2. Modifier (avec pointeurs)
+// 2. Modifier (avec pointeurs) by MOHAMADOU LAMO BABILA
 void modifierEtudiant(Etudiant *e, int n) {
     char mat[20];
     printf("Entrer le matricule a modifier : ");
@@ -126,7 +126,7 @@ int calculerAge(Date date, int annee_actuelle)
     return annee_actuelle - date.annee;
 }
 
-// 3. Recherche Linéaire
+// 3. Recherche Linéaire MOHAMADOU LAMO BABILA
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
     for (int i = 0; i < n; i++)
         if (strcmp(tab[i].matricule, matricule) == 0)
