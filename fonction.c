@@ -1,11 +1,13 @@
 #include "fonction.h"
 
+// Author : @RedThek
 // Vide le buffer (mémoire tampon) clavier pour éviter les sauts de saisie
 void viderBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+// Author : @RedThek
 // Remplace scanf pour les chaînes : lit les espaces et retire le '\n' final
 void lireChaine(char *chaine, int taille) {
     fgets(chaine, taille, stdin);
@@ -18,6 +20,7 @@ void lireChaine(char *chaine, int taille) {
     }
 }
 
+// Author : @RedThek
 // Lit une ligne de texte et tente de la convertir en entier
 // Redemande tant que la saisie n'est pas un nombre valide
 int lireEntier() {
@@ -40,6 +43,7 @@ int lireEntier() {
     return nombre;
 }
 
+// Author : @RedThek
 void lireSexe(char *sexe) {
     int valide = 0;
     char buffer[10]; // Petit buffer temporaire
@@ -62,6 +66,7 @@ void lireSexe(char *sexe) {
     }
 }
 
+// Author : @RedThek
 int estDateValide(int j, int m, int a) {
     if (a < 1900 || a > 2100) return 0; // Année réaliste
     if (m < 1 || m > 12) return 0;      // Mois 1-12
@@ -78,11 +83,13 @@ int estDateValide(int j, int m, int a) {
     return 1;
 }
 
+// Author : @RedThek
 void pause() {
     printf(YELLOW "\nAppuyez sur Entree pour continuer..." RESET);
     getchar(); // Attend une frappe
 }
 
+// Author : @RedThek
 void nettoyerEcran() {
     #ifdef _WIN32
         system("cls");
@@ -91,6 +98,7 @@ void nettoyerEcran() {
     #endif
 }
 
+// Author : @RedThek
 void afficherBanniere() {
     nettoyerEcran();
     printf(CYAN BOLD);
@@ -144,9 +152,23 @@ void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
         printf("Matricule : ");
         lireChaine(bufferMatricule, 20);
 
-        // On vérifie si ce matricule est déjà dans le tableau (de 0 à n)
-        // La fonction rechercherMatricule renvoie -1 si pas trouvé, sinon l'index
-        if (n > 0 && rechercherMatricule(tab, n, bufferMatricule) != -1) {
+        if ( 
+            (bufferMatricule[0] != '2')  || 
+            (!isdigit(bufferMatricule[1])) || 
+            (memcmp(&bufferMatricule[2], "ENSPM", 5) != 0) || 
+            (!isdigit(bufferMatricule[7])) || 
+            (!isdigit(bufferMatricule[8])) || 
+            (!isdigit(bufferMatricule[9])) || 
+            (!isdigit(bufferMatricule[10])) ||
+            (strlen(bufferMatricule) <= 10)
+        ) {
+            printf(RED "ERREUR : Le matricule '%s' est invalide! Veuillez en choisir un autre.\n" RESET, bufferMatricule);
+            existeDeja = 1;
+        } else if (n > 0 && rechercherMatricule(tab, n, bufferMatricule) != -1) {
+
+            // On vérifie si ce matricule est déjà dans le tableau (de 0 à n)
+            // La fonction rechercherMatricule renvoie -1 si pas trouvé, sinon l'index
+        
             printf(RED "ERREUR : Le matricule '%s' existe deja ! Veuillez en choisir un autre.\n" RESET, bufferMatricule);
             existeDeja = 1;
         } else {
@@ -406,6 +428,7 @@ int calculerAge(Date date, int annee_actuelle)
     return annee_actuelle - date.annee;
 }
 
+// Author : @RedThek
 void sauvegarderEtudiants(Etudiant *tab, int n) {
     FILE *fichier = fopen("etudiants.txt", "w");
     if (fichier != NULL) {
@@ -421,6 +444,7 @@ void sauvegarderEtudiants(Etudiant *tab, int n) {
     }
 }
 
+// Author : @RedThek
 int chargerEtudiants(Etudiant *tab) {
     FILE *fichier = fopen("etudiants.txt", "r");
     int n = 0;
