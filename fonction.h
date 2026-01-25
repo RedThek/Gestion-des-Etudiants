@@ -32,7 +32,9 @@ typedef struct Etudiant{
     char regionOrigine[50];
 } Etudiant;
 
+void viderBuffer();
 void lireChaine(char *chaine, int taille);
+int lireEntier();
 void lireSexe(char *sexe);
 int estDateValide(int j, int m, int a);
 int menu();

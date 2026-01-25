@@ -3,24 +3,10 @@
 
 int main() {
     Etudiant liste[MAX_ETUDIANTS];
-    int nombreEtudiants = 0;
-    int choix;
+    int choix, index, nombreEtudiants = 0;
     char matRech[20];
-    int index;
 
     nombreEtudiants = chargerEtudiants(liste);
-
-    if (nombreEtudiants == 0) {
-        printf(RED "Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: ");
-        int aSaisir;
-        scanf("%d", &aSaisir);
-        for(int i=0; i<aSaisir; i++) {
-            printf("\n--- Etudiant %d ---\n", i+1);
-            saisirEtudiant(&liste[nombreEtudiants], liste, nombreEtudiants); // Utilise l'index courant
-            nombreEtudiants++;
-        }
-        sauvegarderEtudiants(liste, nombreEtudiants);
-    }
 
     do {
         choix = menu();
@@ -28,7 +14,16 @@ int main() {
         switch(choix) {
 
             case 1:
-                if(nombreEtudiants < MAX_ETUDIANTS) {
+                if (nombreEtudiants <= 0) {
+                    printf(RED "Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: " RESET);
+                    int aSaisir = lireEntier();
+                    for(int i = 0; i < aSaisir; i++) {
+                        printf("\n--- Etudiant %d ---\n", i+1);
+                        saisirEtudiant(&liste[nombreEtudiants], liste, nombreEtudiants); // Utilise l'index courant
+                        nombreEtudiants++;
+                    }
+                    sauvegarderEtudiants(liste, nombreEtudiants);
+                } else if(nombreEtudiants < MAX_ETUDIANTS) {
                     saisirEtudiant(&liste[nombreEtudiants], liste, nombreEtudiants);
                     nombreEtudiants++;
                     sauvegarderEtudiants(liste, nombreEtudiants);
@@ -85,7 +80,7 @@ int main() {
                 sauvegarderEtudiants(liste, nombreEtudiants);
                 break;
             default:
-                printf("Choix invalide.\n");
+                printf(RED "Choix invalide.\n");
         }
     } while (choix != 0);
 

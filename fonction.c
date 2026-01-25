@@ -78,9 +78,32 @@ int estDateValide(int j, int m, int a) {
     return 1;
 }
 
+void pause() {
+    printf(YELLOW "\nAppuyez sur Entree pour continuer..." RESET);
+    getchar(); // Attend une frappe
+}
+
+void nettoyerEcran() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void afficherBanniere() {
+    nettoyerEcran();
+    printf(CYAN BOLD);
+    printf("======================================================\n");
+    printf("   G E S T I O N   D E S   E T U D I A N T S   v1.0   \n");
+    printf("======================================================\n");
+    printf(RESET);
+}
+
 // Author : @RedThek
 //Affiche le menu et retourne le choix
 int menu() {
+    afficherBanniere();
     printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
     printf("1. Enregistrer un etudiant\n");
     printf("2. Modifier un etudiant\n");
@@ -98,7 +121,7 @@ int menu() {
 
 // Récuperation des Informations By MKR_fire
 void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
-    printf("\n--- Saisie Nouvel Etudiant ---\n");
+    printf(CYAN "\n--- Saisie Nouvel Etudiant ---\n" RESET);
 
     // --- GESTION DES DOUBLONS (Partie Modifiée) ---
     int existeDeja = 0;
@@ -126,7 +149,7 @@ void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
     // 2. Dates (Boucle de validation)
     int dateOk = 0;
     while (!dateOk) {
-        printf("Date Naissance (JJ MM AAAA): ");
+        printf("Date Naissance (JJ MM AAAA) \n");
         
         printf("Annee de naissance (ex: 2000): ");
         e->dateNaissance.annee = lireEntier();
@@ -151,6 +174,8 @@ void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
     printf("Region d'origine: "); lireChaine(e->regionOrigine, 50);
 
     printf(GREEN "Etudiant ajoute avec succes.\n" RESET);
+
+    pause();
 }
 
 //Enregistrement d'un étudiant By MKR_fire
@@ -172,7 +197,7 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
         printf("\n--- Enregistrement de l'etudiant %d ---\n", i + 1);
 
         /* Saisie des Informations */
-        Enregistrement_Etudiant(&tab[*n]);
+        //Enregistrement_Etudiant(&tab[*n]);
         (*n)++;
     }
 
@@ -212,6 +237,7 @@ void afficherListe(Etudiant *tab, int n) {
     }
     printf("--------------------------------------------------------------------------------\n");
     printf(GREEN "Total: %d etudiants\n" RESET, n);
+    pause();
 }
 
 // 2. Modifier (avec pointeurs) by MOHAMADOU LAMO BABILA
@@ -260,7 +286,7 @@ void supprimerEtudiant(Etudiant tab[], int *n, char *matricule) {
     int pos = rechercherMatricule(tab, *n, matricule);
 
     if (pos == -1) {
-        printf("Etudiant introuvable.\n");
+        printf(RED "Etudiant introuvable.\n");
         return;
     }
 
@@ -328,7 +354,8 @@ void sauvegarderEtudiants(Etudiant *tab, int n) {
                     tab[i].sexe, tab[i].departement, tab[i].filiere, tab[i].regionOrigine);
         }
         fclose(fichier);
-        printf("Donnees sauvegardees.\n");
+        printf(GREEN "Donnees sauvegardees.\n" RESET);
+        pause();
     }
 }
 
@@ -353,30 +380,8 @@ int chargerEtudiants(Etudiant *tab) {
                     tab[i].regionOrigine);
         }
         fclose(fichier);
-        printf("%d etudiants charges.\n", n);
+        printf(GREEN "%d etudiants charges.\n", n, RESET);
         return n;
     }
     return 0;
-}
-
-void nettoyerEcran() {
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
-}
-
-void pause() {
-    printf(YELLOW "\nAppuyez sur Entree pour continuer..." RESET);
-    getchar(); // Attend une frappe
-}
-
-void afficherBanniere() {
-    nettoyerEcran();
-    printf(CYAN BOLD);
-    printf("======================================================\n");
-    printf("   G E S T I O N   D E S   E T U D I A N T S   v1.0   \n");
-    printf("======================================================\n");
-    printf(RESET);
 }
