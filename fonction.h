@@ -1,3 +1,12 @@
+// Codes couleurs ANSI pour la console
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define YELLOW  "\x1b[33m"
+#define BLUE    "\x1b[34m"
+#define CYAN    "\x1b[36m"
+#define BOLD    "\x1b[1m"
+#define RESET   "\x1b[0m" // Pour remettre la couleur par défaut
+
 #ifndef FONCTION_H
 #define FONCTION_H
 
@@ -23,8 +32,11 @@ typedef struct Etudiant{
     char regionOrigine[50];
 } Etudiant;
 
+void lireChaine(char *chaine, int taille);
+void lireSexe(char *sexe);
+int estDateValide(int j, int m, int a);
 int menu();
-void saisirEtudiant(Etudiant *e);
+void saisirEtudiant(Etudiant *e, Etudiant *tab, int n);
 void Enregistrer_Etudiants(Etudiant tab[], int *n);
 void afficherEtudiant(Etudiant e);
 void afficherListe(Etudiant *tab, int n);

@@ -1,5 +1,5 @@
 #include "fonction.h"
-#define MAX_ETUDIANTS 100
+#define MAX_ETUDIANTS 500
 
 int main() {
     Etudiant liste[MAX_ETUDIANTS];
@@ -8,20 +8,15 @@ int main() {
     char matRech[20];
     int index;
 
-    printf("Voulez-vous charger les donnees depuis le fichier ? (1=Oui, 0=Non): ");
-    int charger;
-    scanf("%d", &charger);
-    if (charger) {
-        nombreEtudiants = chargerEtudiants(liste);
-    }
+    nombreEtudiants = chargerEtudiants(liste);
 
     if (nombreEtudiants == 0) {
-        printf("Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: ");
+        printf(RED "Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: ");
         int aSaisir;
         scanf("%d", &aSaisir);
         for(int i=0; i<aSaisir; i++) {
             printf("\n--- Etudiant %d ---\n", i+1);
-            saisirEtudiant(&liste[nombreEtudiants]); // Utilise l'index courant
+            saisirEtudiant(&liste[nombreEtudiants], liste, nombreEtudiants); // Utilise l'index courant
             nombreEtudiants++;
         }
         sauvegarderEtudiants(liste, nombreEtudiants);
@@ -34,17 +29,17 @@ int main() {
 
             case 1:
                 if(nombreEtudiants < MAX_ETUDIANTS) {
-                    saisirEtudiant(&liste[nombreEtudiants]);
+                    saisirEtudiant(&liste[nombreEtudiants], liste, nombreEtudiants);
                     nombreEtudiants++;
                     sauvegarderEtudiants(liste, nombreEtudiants);
-                } else { printf("Liste pleine.\n"); }
+                } else { printf(RED "Liste pleine impossible d'ajouter.\n" RESET); }
                 break;
             
             case 2:
                 printf("Matricule a modifier: "); scanf("%s", matRech);
                 index = rechercherMatricule(liste, nombreEtudiants, matRech);
                 if(index != -1) {
-                    modifierEtudiant(&liste[index]);
+                    modifierEtudiant(&liste[index], index);
                     sauvegarderEtudiants(liste, nombreEtudiants);
                 }
                 else printf("Introuvable.\n");
