@@ -1,8 +1,8 @@
 #include "fonction.h"
 
+// Author : @RedThek
 //Affiche le menu et retourne le choix
 int menu() {
-    //By MKR_fire
     int choix;
     printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
     printf("1. Enregistrer un etudiant\n");
@@ -20,30 +20,6 @@ int menu() {
     return choix;
 }
 
-//Enregistrement d'un étudiant By MKR_fire
-void Enregistrer_Etudiants(Etudiant tab[], int *n)
-{
-    int i, nombre;
-
-    printf("Combien d'etudiants voulez-vous enregistrer ? ");
-    scanf("%d", &nombre);
-
-    for (i = 0; i < nombre; i++)
-    {
-        if (*n >= 100)
-        {
-            printf("Tableau plein !\n");
-            break;
-        }
-
-        printf("\n--- Enregistrement de l'etudiant %d ---\n", i + 1);
-
-        /* Saisie des Informations */
-        Enregistrement_Etudiant(&tab[*n]);
-        (*n)++;
-    }
-
-}
 // Récuperation des Informations By MKR_fire
 void saisirEtudiant(Etudiant *e)
 {
@@ -79,6 +55,42 @@ void saisirEtudiant(Etudiant *e)
     scanf("%s", e->regionOrigine);
 }
 
+//Enregistrement d'un étudiant By MKR_fire
+void Enregistrer_Etudiants(Etudiant tab[], int *n)
+{
+    int i, nombre;
+
+    printf("Combien d'etudiants voulez-vous enregistrer ? ");
+    scanf("%d", &nombre);
+
+    for (i = 0; i < nombre; i++)
+    {
+        if (*n >= 100)
+        {
+            printf("Tableau plein !\n");
+            break;
+        }
+
+        printf("\n--- Enregistrement de l'etudiant %d ---\n", i + 1);
+
+        /* Saisie des Informations */
+        Enregistrement_Etudiant(&tab[*n]);
+        (*n)++;
+    }
+
+}
+
+void afficherEtudiant(Etudiant e) {
+    printf("\n--- DETAILS DE L'ETUDIANT ---\n");
+    printf("Matricule: %s\n", e.matricule);
+    printf("Nom: %s\n", e.nom);
+    printf("Prenom: %s\n", e.prenom);
+    printf("Date de Naissance: %02d/%02d/%04d\n", e.dateNaissance.jour, e.dateNaissance.mois, e.dateNaissance.annee);
+    printf("Sexe: %s\n", e.sexe);
+    printf("Departement: %s\n", e.departement);
+    printf("Filiere: %s\n", e.filiere);
+    printf("Region d'Origine: %s\n", e.regionOrigine);
+}
 
 // 9. Afficher la liste
 void afficherListe(Etudiant *tab, int n) {
@@ -121,28 +133,12 @@ void modifierEtudiant(Etudiant *e, int n) {
     scanf("%s", e[pos].regionOrigine); 
 }
 
-//Calculer d'âge étudiant By MKR_fire
-int calculerAge(Date date, int annee_actuelle)
-{
-    return annee_actuelle - date.annee;
-}
-
 // 3. Recherche Linéaire MOHAMADOU LAMO BABILA
 int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
     for (int i = 0; i < n; i++)
         if (strcmp(tab[i].matricule, matricule) == 0)
             return i;
     return -1;
-}
-
-void trierAlphabetique(Etudiant *tab, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
-            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
-                Etudiant tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
 }
 
 // 4. Supprimer
@@ -159,6 +155,27 @@ void supprimerEtudiant(Etudiant tab[], int *n, char *matricule) {
         tab[i] = tab[i + 1];
 
     (*n)--;
+}
+
+void trierAlphabetique(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].nom, tab[j].nom) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
+}
+
+// 8. Trier par Filière
+void trierFiliere(Etudiant *tab, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
+                Etudiant tmp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = tmp;
+            }
 }
 
 // 6. Recherche Dichotomique By MKR_fire
@@ -180,16 +197,10 @@ int rechercheDichotomique(Etudiant *tab, int n, char *matr)
     return -1;
 }
 
-
-// 8. Trier par Filière
-void trierFiliere(Etudiant *tab, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
-            if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
-                Etudiant tmp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = tmp;
-            }
+//Calculer d'âge étudiant By MKR_fire
+int calculerAge(Date date, int annee_actuelle)
+{
+    return annee_actuelle - date.annee;
 }
 
 void sauvegarderEtudiants(Etudiant *tab, int n) {

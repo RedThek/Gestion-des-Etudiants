@@ -6,13 +6,13 @@
 #include <string.h>
 #include <time.h>
 
-typedef struct {
+typedef struct Date{
     int jour;
     int mois;
     int annee;
 } Date;
 
-typedef struct {
+typedef struct Etudiant{
     char matricule[20];
     char nom[50];
     char prenom[50];
@@ -28,7 +28,7 @@ void saisirEtudiant(Etudiant *e);
 void Enregistrer_Etudiants(Etudiant tab[], int *n);
 void afficherEtudiant(Etudiant e);
 void afficherListe(Etudiant *tab, int n);
-void modifierEtudiant(Etudiant *e);
+void modifierEtudiant(Etudiant *e, int n);
 int rechercherMatricule(Etudiant *tab, int n, char *matricule);
 void supprimerEtudiant(Etudiant *tab, int *n, char *matricule);
 void trierAlphabetique(Etudiant *tab, int n);
