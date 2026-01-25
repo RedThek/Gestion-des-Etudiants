@@ -12,19 +12,16 @@ typedef struct {
     int annee;
 } Date;
 
- 
 typedef struct {
     char matricule[20];
     char nom[50];
     char prenom[50];
     Date dateNaissance;
-    char sexe[10]; // "M" ou "F"
+    char sexe[10];
     char departement[50];
     char filiere[50];
     char regionOrigine[50];
 } Etudiant;
-
-// Prototypes des fonctions
 
 int menu();
 void saisirEtudiant(Etudiant *e);

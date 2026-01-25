@@ -2,6 +2,7 @@
 
 //Affiche le menu et retourne le choix
 int menu() {
+    //By MKR_fire
     int choix;
     printf("\n--- MENU GESTION DES ETUDIANTS ---\n");
     printf("1. Enregistrer un etudiant\n");
@@ -134,7 +135,6 @@ int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
     return -1;
 }
 
-// 5. Tri Alphabétique
 void trierAlphabetique(Etudiant *tab, int n) {
     for (int i = 0; i < n - 1; i++)
         for (int j = i + 1; j < n; j++)
@@ -192,7 +192,6 @@ void trierFiliere(Etudiant *tab, int n) {
             }
 }
 
-// Sauvegarde le tableau d'étudiants dans le fichier
 void sauvegarderEtudiants(Etudiant *tab, int n) {
     FILE *fichier = fopen("etudiants.txt", "w");
     if (fichier != NULL) {
@@ -211,8 +210,6 @@ void sauvegarderEtudiants(Etudiant *tab, int n) {
     }
 }
 
-// Charge les étudiants depuis le fichier dans le tableau
-// Retourne le nombre d'étudiants chargés
 int chargerEtudiants(Etudiant *tab) {
     FILE *fichier = fopen("etudiants.txt", "r");
     int n = 0;
