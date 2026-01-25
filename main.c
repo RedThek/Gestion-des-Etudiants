@@ -14,6 +14,7 @@ int main() {
         switch(choix) {
 
             case 1:
+                printf(CYAN "\n--- Saisie Nouvel Etudiant ---\n" RESET);
                 if (nombreEtudiants <= 0) {
                     printf(RED "Aucune donnee trouvee. Entrez le nombre initial d'etudiants a saisir: " RESET);
                     int aSaisir = lireEntier();
@@ -31,13 +32,16 @@ int main() {
                 break;
             
             case 2:
-                printf("Matricule a modifier: "); scanf("%s", matRech);
+                printf(CYAN "\n--- Modification d'un Etudiant ---\n" RESET);
+                printf("Matricule a modifier: "); lireChaine(matRech, 20);
                 index = rechercherMatricule(liste, nombreEtudiants, matRech);
                 if(index != -1) {
                     modifierEtudiant(&liste[index], index);
                     sauvegarderEtudiants(liste, nombreEtudiants);
+                } else {
+                    printf(RED "Etudiant Introuvable.\n" RESET);
+                    pause();
                 }
-                else printf("Introuvable.\n");
                 break;
 
             case 3:

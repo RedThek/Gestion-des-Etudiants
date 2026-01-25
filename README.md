@@ -11,7 +11,7 @@ Le programme offre une interface modulaire pour effectuer les opérations CRUD (
 * **💾 Persistance des données :** Sauvegarde et chargement automatique via un fichier CSV (`etudiants.txt`).
 * **🛡️ Saisie Sécurisée :** Protection contre les entrées invalides (dates, chiffres, buffer overflow).
 * **🔍 Recherche Avancée :** * Recherche linéaire par Matricule.
-    * Recherche dichotomique (pour les grands volumes de données).
+  * Recherche dichotomique (pour les grands volumes de données).
 * **⚡ Tri :** Algorithmes de tri par ordre alphabétique (Nom) et par Filière.
 * **📊 Utilitaires :** Calcul automatique de l'âge à partir de la date de naissance.
 
@@ -23,26 +23,29 @@ Le programme offre une interface modulaire pour effectuer les opérations CRUD (
 
 ## 📥 Installation et Compilation
 
-1.  **Cloner le dépôt :**
+1. **Cloner le dépôt :**
+
     ```bash
-    git clone [https://github.com/RedThek/Gestion-des-Etudiants.git](https://github.com/RedThek/Gestion-des-Etudiants.git)
+    git clone [https://github.com/RedThek/Gestion-des-Etudiants.git]
     cd Gestion-des-Etudiants
     ```
 
-2.  **Compiler le projet :**
+2. **Compiler le projet :**
     Nous utilisons une architecture modulaire. Compilez les fichiers sources ensemble :
-    
+
     *Sur Linux / Mac :*
+
     ```bash
     gcc main.c fonction.c -o app_etudiant
     ```
-    
+
     *Sur Windows :*
+
     ```bash
     gcc main.c fonction.c -o app_etudiant.exe
     ```
 
-3.  **Lancer l'application :**
+3. **Lancer l'application :**
     *Sur Linux / Mac :* `./app_etudiant`
     *Sur Windows :* `app_etudiant.exe`
 

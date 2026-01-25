@@ -119,9 +119,22 @@ int menu() {
     return lireEntier();
 }
 
+int menuModification() {
+    printf(CYAN "\n--- MENU MODIFICATION ETUDIANT ---\n" RESET);
+    printf("1. Modifier le nom\n");
+    printf("2. Modifier le prenom\n");
+    printf("3. Modifier la date de naissance\n");
+    printf("4. Modifier le sexe\n");
+    printf("5. Modifier le departement\n");
+    printf("6. Modifier la filiere\n");
+    printf("7. Modifier la region d'origine\n");
+    printf("0. Retour au menu principal\n");
+    printf("Votre choix: ");
+    return lireEntier();
+}
+
 // Récuperation des Informations By MKR_fire
 void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
-    printf(CYAN "\n--- Saisie Nouvel Etudiant ---\n" RESET);
 
     // --- GESTION DES DOUBLONS (Partie Modifiée) ---
     int existeDeja = 0;
@@ -242,34 +255,62 @@ void afficherListe(Etudiant *tab, int n) {
 
 // 2. Modifier (avec pointeurs) by MOHAMADOU LAMO BABILA
 void modifierEtudiant(Etudiant *e, int n) {
-    char mat[20];
-    printf("Entrer le matricule a modifier : ");
-    scanf("%s", mat);
+    printf("Modification de l'etudiant %s %s \n", e->nom, e->prenom);
+    int choix;
+        do {
+            choix = menuModification();
+            switch (choix) {
+                case 1:
+                    printf("Nouveau nom : ");
+                    lireChaine(e->nom, 50);
+                    break;
+                case 2:
+                    printf("Nouveau prenom : ");
+                    lireChaine(e->prenom, 50);
+                    break;
+                case 3:
+                    int dateOk = 0;
+                    while (!dateOk) {
+                        printf("Nouvelle date de naissance ");
+                        printf("jour :");
+                        e->dateNaissance.jour = lireEntier();
+                        printf("mois :");
+                        e->dateNaissance.mois = lireEntier();
+                        printf("annee :");
+                        e->dateNaissance.annee = lireEntier();
+                        if (estDateValide(e->dateNaissance.jour, e->dateNaissance.mois, e->dateNaissance.annee)) 
+                            dateOk = 1;
+                        else 
+                            printf(RED "Date invalide.\n" RESET);
+                    }
+                    break;
+                case 4:
+                    printf("Nouveau departement : ");
+                    lireChaine(e->departement, 50);
+                    break;
+                case 5:
+                    printf("Nouvelle filiere : ");
+                    lireChaine(e->filiere, 50);
+                    break;
+                case 6:
+                    printf("Nouvelle Region d'origine : ");
+                    lireChaine(e->regionOrigine, 50);
+                    break;
 
-    int pos = rechercherMatricule(e, n, mat);
-    if (pos == -1)
-    {
-        printf("Etudiant non trouve.\n");
-        return;
-    }
-
-    printf("Nouveau nom : ");
-    scanf("%s", e[pos].nom);
-    printf("Nouveau prenom : ");
-    scanf("%s", e[pos].prenom);
-    printf("Nouvelle date de naissance ");
-    printf("jour :");
-    scanf("%s", e[pos].dateNaissance.jour); 
-    printf("mois :");
-    scanf("%s", e[pos].dateNaissance.mois);  
-    printf("annee :");
-    scanf("%s", e[pos].dateNaissance.annee);
-    printf("Nouveau departement : ");
-    scanf("%s", e[pos].departement);
-    printf("Nouvelle filiere : ");
-    scanf("%s", e[pos].filiere);
-    printf("Nouvelle Region d'origine : ");
-    scanf("%s", e[pos].regionOrigine); 
+                case 0:
+                    printf("Retour au menu principal.\n");
+                    break;
+                
+                default:
+                    printf(RED "Choix invalide.\n" RESET);
+                    break;
+                }
+                printf(GREEN "Etudiant modifie avec succes.\n" RESET);
+                printf("Voulez-vous modifier une autre information de cet etudiant? 1 = oui , 0 = non :\n");
+                choix = lireEntier();
+        } while (choix != 0);
+        printf(GREEN "Modification(s) terminee(s).\n" RESET);
+        pause();
 }
 
 // 3. Recherche Linéaire MOHAMADOU LAMO BABILA
@@ -297,13 +338,15 @@ void supprimerEtudiant(Etudiant tab[], int *n, char *matricule) {
 }
 
 void trierAlphabetique(Etudiant *tab, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
             if (strcmp(tab[i].nom, tab[j].nom) > 0) {
                 Etudiant tmp = tab[i];
                 tab[i] = tab[j];
                 tab[j] = tmp;
             }
+        }
+    }
 }
 
 // 8. Trier par Filière
