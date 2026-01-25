@@ -144,9 +144,23 @@ void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
         printf("Matricule : ");
         lireChaine(bufferMatricule, 20);
 
-        // On vérifie si ce matricule est déjà dans le tableau (de 0 à n)
-        // La fonction rechercherMatricule renvoie -1 si pas trouvé, sinon l'index
-        if (n > 0 && rechercherMatricule(tab, n, bufferMatricule) != -1) {
+        if ( 
+            (bufferMatricule[0] != '2')  || 
+            (!isdigit(bufferMatricule[1])) || 
+            (memcmp(&bufferMatricule[2], "ENSPM", 5) != 0) || 
+            (!isdigit(bufferMatricule[7])) || 
+            (!isdigit(bufferMatricule[8])) || 
+            (!isdigit(bufferMatricule[9])) || 
+            (!isdigit(bufferMatricule[10])) ||
+            (strlen(bufferMatricule) <= 10)
+        ) {
+            printf(RED "ERREUR : Le matricule '%s' est invalide! Veuillez en choisir un autre.\n" RESET, bufferMatricule);
+            existeDeja = 1;
+        } else if (n > 0 && rechercherMatricule(tab, n, bufferMatricule) != -1) {
+
+            // On vérifie si ce matricule est déjà dans le tableau (de 0 à n)
+            // La fonction rechercherMatricule renvoie -1 si pas trouvé, sinon l'index
+        
             printf(RED "ERREUR : Le matricule '%s' existe deja ! Veuillez en choisir un autre.\n" RESET, bufferMatricule);
             existeDeja = 1;
         } else {

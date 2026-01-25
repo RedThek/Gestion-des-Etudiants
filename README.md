@@ -10,7 +10,8 @@ Le programme offre une interface modulaire pour effectuer les opérations CRUD (
 
 * **💾 Persistance des données :** Sauvegarde et chargement automatique via un fichier CSV (`etudiants.txt`).
 * **🛡️ Saisie Sécurisée :** Protection contre les entrées invalides (dates, chiffres, buffer overflow).
-* **🔍 Recherche Avancée :** * Recherche linéaire par Matricule.
+* **🔍 Recherche Avancée :**
+  * Recherche linéaire par Matricule.
   * Recherche dichotomique (pour les grands volumes de données).
 * **⚡ Tri :** Algorithmes de tri par ordre alphabétique (Nom) et par Filière.
 * **📊 Utilitaires :** Calcul automatique de l'âge à partir de la date de naissance.
@@ -51,8 +52,18 @@ Le programme offre une interface modulaire pour effectuer les opérations CRUD (
     ```
 
 3. **Lancer l'application :**
-    *Sur Linux / Mac :* `./app_etudiant`
-    *Sur Windows :* `app_etudiant.exe`
+
+    *Sur Linux / Mac :*
+
+    ```bash
+    ./app_etudiant
+    ```
+
+    *Sur Windows :*
+
+    ```bash
+    app_etudiant.exe
+    ```
 
 ## 📂 Structure du Projet
 
@@ -64,5 +75,18 @@ gestion-etudiants/
 ├── fonction.h       # Définition des structures (Etudiant, Date) et prototypes
 ├── etudiants.txt    # Base de données (générée automatiquement)
 └── README.md        # Documentation du projet
+```
 
-## La team derriere ce projet
+## 📖 Documentation
+
+* Les fonctions sont déclarées dans `fonction.h` (certaines fonctions peuvent ne pas avoir été déclarées dans ce fichier : les fonctions utilitaires en particulier...).
+* Les fonctions sont implémentées dans `fonction.c`
+* L'appel de ces fonctions se fait dans `main.c`
+
+## 👨‍💻 L'équipe derrière le Projet (Groupe 8)
+
+* [@RedThek](https://github.com/RedThek)
+* [@mkr-fire](https://github.com/mkr-fire)
+* [@KOUTINIO-BABILA](https://github.com/KOUTINIO-BABILA)
+* [@Mhdlaminou](https://github.com/Mhdlaminou)
+* [@ali-iran94](https://github.com/ali-iran94)
