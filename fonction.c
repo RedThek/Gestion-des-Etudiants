@@ -187,7 +187,6 @@ void saisirEtudiant(Etudiant *e, Etudiant *tab, int n) {
     printf("Region d'origine: "); lireChaine(e->regionOrigine, 50);
 
     printf(GREEN "Etudiant ajoute avec succes.\n" RESET);
-
     pause();
 }
 
@@ -217,7 +216,7 @@ void Enregistrer_Etudiants(Etudiant tab[], int *n)
 }
 
 void afficherEtudiant(Etudiant e) {
-    printf("\n--- DETAILS DE L'ETUDIANT ---\n");
+    printf(BLUE BOLD "\n--- DETAILS DE L'ETUDIANT ---\n" RESET);
     printf("Matricule: %s\n", e.matricule);
     printf("Nom: %s\n", e.nom);
     printf("Prenom: %s\n", e.prenom);
@@ -226,12 +225,14 @@ void afficherEtudiant(Etudiant e) {
     printf("Departement: %s\n", e.departement);
     printf("Filiere: %s\n", e.filiere);
     printf("Region d'Origine: %s\n", e.regionOrigine);
+    pause();
 }
 
 // 9. Afficher la liste
 void afficherListe(Etudiant *tab, int n) {
-    if (n == 0) {
+    if (n <= 0) {
         printf(RED "Aucun etudiant dans la liste.\n" RESET);
+        pause();
         return;
     }
 
@@ -255,6 +256,12 @@ void afficherListe(Etudiant *tab, int n) {
 
 // 2. Modifier (avec pointeurs) by MOHAMADOU LAMO BABILA
 void modifierEtudiant(Etudiant *e, int n) {
+    if (n <= 0) {
+        printf(RED "Aucun etudiant dans la liste.\n" RESET);
+        pause();
+        return;
+    }
+    nettoyerEcran();
     printf("Modification de l'etudiant %s %s \n", e->nom, e->prenom);
     int choix;
         do {
@@ -323,21 +330,26 @@ int rechercherMatricule(Etudiant *tab, int n, char *matricule) {
 
 // 4. Supprimer
 void supprimerEtudiant(Etudiant tab[], int *n, char *matricule) {
-
     int pos = rechercherMatricule(tab, *n, matricule);
-
     if (pos == -1) {
         printf(RED "Etudiant introuvable.\n");
+        pause();
         return;
     }
 
-    for (int i = pos; i < *n - 1; i++)
-        tab[i] = tab[i + 1];
-
+    for (int i = pos; i < *n - 1; i++) { tab[i] = tab[i + 1]; }
     (*n)--;
+
+    printf(GREEN "Suppression de l'etudiant terminee.\n" RESET);
+    pause();
 }
 
 void trierAlphabetique(Etudiant *tab, int n) {
+    if (n < 0) {
+        printf(RED "Aucun etudiant dans la liste.\n" RESET);
+        pause();
+        return;
+    }
     for (int i = 0; i < n - 1; i++) {
         for (int j = i + 1; j < n; j++) {
             if (strcmp(tab[i].nom, tab[j].nom) > 0) {
@@ -351,13 +363,20 @@ void trierAlphabetique(Etudiant *tab, int n) {
 
 // 8. Trier par Filière
 void trierFiliere(Etudiant *tab, int n) {
-    for (int i = 0; i < n - 1; i++)
-        for (int j = i + 1; j < n; j++)
+    if (n < 0) {
+        printf(RED "Aucun etudiant dans la liste.\n" RESET);
+        pause();
+        return;
+    }
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
             if (strcmp(tab[i].filiere, tab[j].filiere) > 0) {
                 Etudiant tmp = tab[i];
                 tab[i] = tab[j];
                 tab[j] = tmp;
             }
+        }
+    }
 }
 
 // 6. Recherche Dichotomique By MKR_fire
@@ -397,8 +416,6 @@ void sauvegarderEtudiants(Etudiant *tab, int n) {
                     tab[i].sexe, tab[i].departement, tab[i].filiere, tab[i].regionOrigine);
         }
         fclose(fichier);
-        printf(GREEN "Donnees sauvegardees.\n" RESET);
-        pause();
     }
 }
 
@@ -423,7 +440,6 @@ int chargerEtudiants(Etudiant *tab) {
                     tab[i].regionOrigine);
         }
         fclose(fichier);
-        printf(GREEN "%d etudiants charges.\n", n, RESET);
         return n;
     }
     return 0;

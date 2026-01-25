@@ -1,4 +1,4 @@
-# 🎓 Gestion des Étudiants (Student Management System)
+# 🎓 Gestion des Étudiants
 
 Bienvenue dans le projet **Gestion des Étudiants**, une application console développée en langage C permettant de gérer efficacement une base de données étudiante.
 
@@ -26,7 +26,12 @@ Le programme offre une interface modulaire pour effectuer les opérations CRUD (
 1. **Cloner le dépôt :**
 
     ```bash
-    git clone [https://github.com/RedThek/Gestion-des-Etudiants.git]
+    git clone https://github.com/RedThek/Gestion-des-Etudiants.git
+    ```
+
+    **Et naviguez dans le dossier correspondant :**
+
+    ```bash
     cd Gestion-des-Etudiants
     ```
 
@@ -59,3 +64,5 @@ gestion-etudiants/
 ├── fonction.h       # Définition des structures (Etudiant, Date) et prototypes
 ├── etudiants.txt    # Base de données (générée automatiquement)
 └── README.md        # Documentation du projet
+
+## La team derriere ce projet

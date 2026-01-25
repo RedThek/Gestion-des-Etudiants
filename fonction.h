@@ -38,6 +38,7 @@ int lireEntier();
 void lireSexe(char *sexe);
 int estDateValide(int j, int m, int a);
 void pause();
+void nettoyerEcran();
 int menu();
 int menuModification();
 void saisirEtudiant(Etudiant *e, Etudiant *tab, int n);
