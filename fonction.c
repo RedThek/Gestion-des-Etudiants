@@ -270,16 +270,19 @@ void afficherListe(Etudiant *tab, int n) {
 
 // 2. Modifier (avec pointeurs) by MOHAMADOU LAMO BABILA
 void modifierEtudiant(Etudiant *e, int n) {
+
     if (n <= 0) {
         printf(RED "Aucun etudiant dans la liste.\n" RESET);
         pause();
         return;
     }
+
     nettoyerEcran();
     printf("Modification de l'etudiant %s %s \n", e->nom, e->prenom);
     int choix;
         do {
             choix = menuModification();
+            int dateOk = 0;
             switch (choix) {
                 case 1:
                     printf("Nouveau nom : ");
@@ -290,7 +293,6 @@ void modifierEtudiant(Etudiant *e, int n) {
                     lireChaine(e->prenom, 50);
                     break;
                 case 3:
-                    int dateOk = 0;
                     while (!dateOk) {
                         printf("Nouvelle date de naissance ");
                         printf("jour :");
